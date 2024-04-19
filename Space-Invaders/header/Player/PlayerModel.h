@@ -27,16 +27,18 @@ namespace Player
         Entity::EntityType entity_type;
         PlayerState player_state;
 
-        static int player_lives;
-        static int player_score;
-        static int enemies_killed;
-        static int bullets_fired;
+
 
         bool b_shield;
         bool b_rapid_fire;
         bool b_tripple_laser;
 
     public:
+        static int player_lives;
+        static int player_score;
+        static int enemies_killed;
+        static int bullets_fired;
+
         const sf::Vector2f left_most_position = sf::Vector2f(50.f, 950.f);
         const sf::Vector2f right_most_position = sf::Vector2f(1800.f, 950.f);
         const sf::Vector2f barrel_position_offset = sf::Vector2f(20.f, 5.f);

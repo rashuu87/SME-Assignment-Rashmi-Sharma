@@ -22,6 +22,9 @@ namespace Player
 	using namespace Main;
 	using namespace Gameplay;
 
+	PlayerView* player_view;
+	PlayerModel* player_model;
+
 	PlayerController::PlayerController()
 	{
 		player_view = new PlayerView();
@@ -84,7 +87,7 @@ namespace Player
 
 	void PlayerController::onCollision(ICollider* other_collider)
 	{
-		if(processPowerupCollision(other_collider)) 
+		if (processPowerupCollision(other_collider))
 			return;
 
 		processEnemyCollision(other_collider);
@@ -92,7 +95,7 @@ namespace Player
 
 	bool PlayerController::processEnemyCollision(ICollider* other_collider)
 	{
-		if (player_model->isShieldEnabled()) 
+		if (player_model->isShieldEnabled())
 			return false;
 
 		EnemyController* enemy_controller = dynamic_cast<EnemyController*>(other_collider);
@@ -120,24 +123,24 @@ namespace Player
 		if (elapsed_shield_duration > 0)
 		{
 			elapsed_shield_duration -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-			
-			if (elapsed_shield_duration <= 0) 
+
+			if (elapsed_shield_duration <= 0)
 				disableShield();
 		}
 
 		if (elapsed_rapid_fire_duration > 0)
 		{
 			elapsed_rapid_fire_duration -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-			
-			if (elapsed_rapid_fire_duration <= 0) 
+
+			if (elapsed_rapid_fire_duration <= 0)
 				disableRapidFire();
 		}
 
 		if (elapsed_tripple_laser_duration > 0)
 		{
 			elapsed_tripple_laser_duration -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-			
-			if (elapsed_tripple_laser_duration <= 0) 
+
+			if (elapsed_tripple_laser_duration <= 0)
 				disableTrippleLaser();
 		}
 	}
@@ -194,14 +197,18 @@ namespace Player
 	{
 		EventService* event_service = ServiceLocator::getInstance()->getEventService();
 
-		if (event_service->pressedLeftArrowKey() || event_service->pressedAKey()) 
-			moveLeft();	
+		if (event_service->pressedLeftArrowKey() || event_service->pressedAKey())
+			moveLeft();
 
-		if (event_service->pressedRightArrowKey() || event_service->pressedDKey()) 
+		if (event_service->pressedRightArrowKey() || event_service->pressedDKey())
 			moveRight();
 
-		//if (event_service->pressedLeftMouseButton()) 
-		//	processBulletFire();
+		if (event_service->pressedLeftMouseButton())
+			processBulletFire();
+	}
+
+	void PlayerController::processBulletFire() {
+
 	}
 
 	void PlayerController::moveLeft()
